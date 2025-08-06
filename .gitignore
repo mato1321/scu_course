@@ -1,0 +1,127 @@
+# ==================== 東吳課程監控機器人 .gitignore (改進版) ====================
+
+# 環境變數檔案（包含敏感資料）
+.env
+*.env
+.env.*
+
+# 資料庫檔案
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# 日誌檔案
+*.log
+*.log.*
+logs/
+
+# 安全相關檔案
+.encryption_key
+*.key
+*.pem
+*.crt
+
+# 調試檔案
+debug_*.html
+debug_*.json
+debug_*.txt
+
+# Python相關
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虛擬環境
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# 測試相關
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# IDE設定
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# 作業系統相關
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# 臨時檔案
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# 快取檔案
+.cache/
+*.cache
+
+# 文檔建置
+docs/_build/
+docs/build/
+site/
+
+# 配置檔案（如果包含敏感資訊）
+config.ini
+config.json
+settings.json
+
+# 監控和統計資料
+stats/
+reports/
+monitoring_data/
+
+# Docker相關
+.dockerignore
+Dockerfile.dev
+docker-compose.override.yml
+
+# 本地開發工具
+.local/
+.mypy_cache/
+.dmypy.json
+dmypy.json
