@@ -1,114 +1,114 @@
-# 🤖 東吳大學課程餘額查詢機器人
+# 🤖 Soochow University Course Monitoring Bot
 
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1.1-green.svg)](https://flask.palletsprojects.com/)
 [![LINE Bot SDK](https://img.shields.io/badge/LINE%20Bot%20SDK-3.17.1-00C300.svg)](https://github.com/line/line-bot-sdk-python)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-一個為**東吳大學**學生設計的強大 **LINE Bot** 應用程式，能夠即時監控課程餘額狀況。系統會自動追蹤課程選課狀態，並在有名額時立即發送通知訊息。
+A robust **LINE Bot** application designed for **Soochow University** students to monitor course availability in real-time. The system automatically tracks course enrollment status and sends instant notifications when seats become available.
 
-**繁體中文** | [English](README.md)
+[繁體中文](README_zh.md) | **English**
 
-## ✨ 核心功能
+## ✨ Key Features
 
-- 🔍 **即時課程查詢**：使用4位數課程編號快速查詢課程詳細資訊
-- 🎯 **智慧型自動監控**：自動監控無名額課程，有空位時立即通知
-- 📋 **完整管理介面**：查看、新增、移除監控清單中的課程
-- ⚡ **即時推播通知**：透過 LINE 訊息在第一時間收到餘額通知
-- 🛡️ **資源管理**：限制每位使用者最多監控10門課程，並使用執行緒安全機制
-- 🔄 **容錯處理**：自動重試機制與錯誤恢復功能
+- 🔍 **Real-time Course Queries**: Instant course information retrieval using 4-digit course codes
+- 🎯 **Intelligent Auto-Monitoring**: Automatically monitors courses with no available seats
+- 📋 **Comprehensive Management**: View, add, and remove courses from monitoring lists
+- ⚡ **Instant Push Notifications**: LINE message alerts when seats become available
+- 🛡️ **Resource Management**: Rate limiting (10 courses per user) and thread-safe operations
+- 🔄 **Fault Tolerance**: Automatic retry mechanisms and error recovery
 
-## 🏗️ 系統架構
+## 🏗️ System Architecture
 
-### 核心元件
+### Core Components
 
-- **CourseQuery 類別**：處理東吳大學系統驗證與課程資料擷取
-- **監控引擎**：多執行緒背景監控，每5秒檢查一次課程狀況
-- **LINE Bot 整合**：Webhook 處理與推播通知傳送
-- **Flask Web 服務**：RESTful API 端點與健康監控儀表板
+- **CourseQuery Class**: Handles Soochow University system authentication and course data retrieval
+- **Monitoring Engine**: Multi-threaded background monitoring with 5-second intervals
+- **LINE Bot Integration**: Webhook handling and push notification delivery
+- **Flask Web Service**: RESTful API endpoints and health monitoring dashboard
 
-### 技術堆疊
+### Technical Stack
 
-- **後端框架**：Flask 3.1.1
-- **網頁爬蟲**：requests 2.32.4 + BeautifulSoup 4.13.4
-- **訊息平台**：LINE Bot SDK 3.17.1
-- **並發處理**：Python threading 配合執行緒安全鎖
-- **資料解析**：正規表示式 + DOM 解析
-- **環境管理**：python-dotenv 1.0.0
+- **Backend Framework**: Flask 3.1.1
+- **Web Scraping**: requests 2.32.4 + BeautifulSoup 4.13.4
+- **Messaging Platform**: LINE Bot SDK 3.17.1
+- **Concurrent Processing**: Python threading with thread-safe locks
+- **Data Parsing**: Regular expressions + DOM parsing
+- **Environment Management**: python-dotenv 1.0.0
 
-## 🚀 快速入門
+## 🚀 Quick Start
 
-### 前置需求
+### Prerequisites
 
-- **Python 3.7+** 並安裝 pip 套件管理器
-- **LINE Bot 頻道** (Channel Access Token 與 Channel Secret)
-- **東吳大學帳號** (學生認證資料)
-- **ngrok** 用於本地開發隧道
+- **Python 3.7+** with pip package manager
+- **LINE Bot Channel** (Channel Access Token & Channel Secret)
+- **Soochow University Account** (Student credentials)
+- **ngrok** for local development tunneling
 
-### 安裝指南
+### Installation Guide
 
-1. **複製儲存庫**
+1. **Clone Repository**
 ```bash
 git clone https://github.com/yourusername/soochow-course-bot.git
 cd soochow-course-bot
 ```
 
-2. **建立虛擬環境 (建議)**
+2. **Create Virtual Environment (Recommended)**
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
-# 或
+# or
 venv\Scripts\activate     # Windows
 ```
 
-3. **安裝相依性套件**
+3. **Install Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **環境變數設定**
+4. **Environment Configuration**
 
-在專案根目錄建立 `.env` 檔案：
+Create a `.env` file in the project root:
 ```env
-LINE_CHANNEL_ACCESS_TOKEN=你的_line_channel_access_token
-LINE_CHANNEL_SECRET=你的_line_channel_secret
-SOOCHOW_USERNAME=你的_東吳大學學號
-SOOCHOW_PASSWORD=你的_東吳大學密碼
+LINE_CHANNEL_ACCESS_TOKEN=your_line_channel_access_token
+LINE_CHANNEL_SECRET=your_line_channel_secret
+SOOCHOW_USERNAME=your_soochow_username
+SOOCHOW_PASSWORD=your_soochow_password
 ```
 
-5. **啟動應用程式**
+5. **Start the Application**
 ```bash
 python main.py
 ```
 
-服務將在 `http://localhost:5000` 上運行
+The service will be available at `http://localhost:5000`
 
-## 🌐 ngrok 設定與整合
+## 🌐 ngrok Setup & Integration
 
-### 安裝 ngrok
+### Install ngrok
 
-1. **下載 ngrok**
-   - 前往 [ngrok.com](https://ngrok.com/) 並建立免費帳號
-   - 下載適用於您作業系統的版本
+1. **Download ngrok**
+   - Visit [ngrok.com](https://ngrok.com/) and create a free account
+   - Download the appropriate version for your OS
 
-2. **認證設定**
+2. **Authentication**
 ```bash
-ngrok authtoken 您的_認證_TOKEN
+ngrok authtoken YOUR_AUTH_TOKEN
 ```
 
-### 隧道設定
+### Tunnel Configuration
 
-1. **啟動您的 Flask 應用程式**
+1. **Start Your Flask App**
 ```bash
 python main.py
 ```
 
-2. **建立 HTTP 隧道 (開新終端機)**
+2. **Create HTTP Tunnel (New Terminal)**
 ```bash
 ngrok http 5000
 ```
 
-3. **複製 HTTPS 網址**
+3. **Copy the HTTPS URL**
 ```
 ngrok by @inconshreveable
 
@@ -118,54 +118,54 @@ Version           2.3.40
 Region            United States (us)
 Web Interface     http://127.0.0.1:4040
 Forwarding        http://abc123.ngrok.io -> http://localhost:5000
-Forwarding        https://abc123.ngrok.io -> http://localhost:5000  <-- 使用此網址
+Forwarding        https://abc123.ngrok.io -> http://localhost:5000  <-- Use this URL
 ```
 
-### LINE Bot Webhook 設定
+### LINE Bot Webhook Setup
 
-1. **前往 LINE Developers Console**
-   - 到 [developers.line.biz](https://developers.line.biz/)
-   - 選擇您的頻道
+1. **Navigate to LINE Developers Console**
+   - Go to [developers.line.biz](https://developers.line.biz/)
+   - Select your channel
 
-2. **更新 Webhook 網址**
-   - 導覽至 **Messaging API** 分頁
-   - 設定 **Webhook URL**：`https://abc123.ngrok.io/callback`
-   - 啟用 **Use webhook**
-   - 點擊 **Verify** 測試連線
+2. **Update Webhook URL**
+   - Navigate to **Messaging API** tab
+   - Set **Webhook URL**: `https://abc123.ngrok.io/callback`
+   - Enable **Use webhook**
+   - Click **Verify** to test connection
 
-3. **測試您的機器人**
-   - 使用 QR code 加入機器人為好友
-   - 發送測試訊息
+3. **Test Your Bot**
+   - Add your bot as a friend using QR code
+   - Send a test message
 
-### 正式環境部署
+### Production Deployment
 
-正式環境建議考慮：
-- **付費 ngrok 方案** (每月 $8) 獲得穩定網址
-- **雲端主機**：Railway、Render 或 DigitalOcean
-- **網域與 SSL**：自訂網域配合 HTTPS 憑證
+For production environments, consider:
+- **Paid ngrok Plan** ($8/month) for stable URLs
+- **Cloud Hosting**: Railway, Render, or DigitalOcean
+- **Domain & SSL**: Custom domain with HTTPS certificate
 
-## 📱 機器人指令與使用方式
+## 📱 Bot Commands & Usage
 
-### 可用指令
+### Available Commands
 
-| 指令 | 說明 | 範例 |
-|------|------|------|
-| `[4位數編號]` | 查詢課程並在無名額時自動監控 | `7002` |
-| `清單` | 查看目前監控清單 | `清單` |
-| `取消 [課程編號]` | 取消監控特定課程 | `取消 7002` |
-| `取消 全部` | 取消所有監控 | `取消 全部` |
-| `幫助` | 顯示使用說明 | `幫助` |
+| Command | Description | Example |
+|---------|-------------|---------|
+| `[4-digit code]` | Query course and auto-monitor if no seats | `7002` |
+| `清單` or `list` | View current monitoring list | `清單` |
+| `取消 [course_id]` | Cancel monitoring for specific course | `取消 7002` |
+| `取消 全部` | Cancel all monitoring | `取消 全部` |
+| `幫助` or `help` | Show usage instructions | `幫助` |
 
-### 工作流程
+### Workflow
 
-1. **課程查詢**：發送4位數課程編號給機器人
-2. **自動監控**：系統自動監控無餘額的課程
-3. **即時通知**：有餘額時透過 LINE 收到通知
-4. **自動清理**：成功通知後自動停止監控
+1. **Course Query**: Send 4-digit course code to bot
+2. **Auto-Monitoring**: System automatically monitors courses with no available seats
+3. **Instant Notification**: Receive LINE notification when seats become available
+4. **Auto-Cleanup**: Monitoring automatically stops after successful notification
 
-### 回應範例
+### Response Examples
 
-**有餘額：**
+**Available Seats:**
 ```
 課程名稱：資料結構
 選課編號：7002
@@ -176,7 +176,7 @@ Forwarding        https://abc123.ngrok.io -> http://localhost:5000  <-- 使用�
 (目前有15個名額，請盡快去加選!)
 ```
 
-**無餘額（自動監控啟動）：**
+**No Seats (Auto-Monitoring Activated):**
 ```
 成功加入監控清單!
 課程名稱：資料結構
@@ -188,36 +188,36 @@ Forwarding        https://abc123.ngrok.io -> http://localhost:5000  <-- 使用�
 (目前沒有名額，當有名額時會由line主動通知)
 ```
 
-## 🔧 設定參數
+## 🔧 Configuration
 
-### 環境變數
+### Environment Variables
 
-| 變數名稱 | 說明 | 必需 |
-|----------|------|------|
-| `LINE_CHANNEL_ACCESS_TOKEN` | LINE Bot 頻道存取權杖 | ✅ |
-| `LINE_CHANNEL_SECRET` | LINE Bot 頻道密鑰 | ✅ |
-| `SOOCHOW_USERNAME` | 東吳大學學號 | ✅ |
-| `SOOCHOW_PASSWORD` | 東吳大學密碼 | ✅ |
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `LINE_CHANNEL_ACCESS_TOKEN` | LINE Bot Channel Access Token | ✅ |
+| `LINE_CHANNEL_SECRET` | LINE Bot Channel Secret | ✅ |
+| `SOOCHOW_USERNAME` | Soochow University Student ID | ✅ |
+| `SOOCHOW_PASSWORD` | Soochow University Password | ✅ |
 
-### 系統參數
+### System Parameters
 
 ```python
-MONITOR_INTERVAL = 5              # 監控間隔（秒）
-MAX_MONITORING_PER_USER = 10      # 每用戶最大監控課程數
-REQUEST_TIMEOUT = 30              # HTTP 請求超時時間
-PORT = 5000                       # Flask 伺服器埠號
+MONITOR_INTERVAL = 5              # Monitoring interval (seconds)
+MAX_MONITORING_PER_USER = 10      # Maximum courses per user
+REQUEST_TIMEOUT = 30              # HTTP request timeout
+PORT = 5000                       # Flask server port
 ```
 
-## 📊 監控機制
+## 📊 Monitoring Mechanism
 
-### 演算法
+### Algorithm
 
-1. **查詢循環**：每5秒檢查課程狀態
-2. **餘額偵測**：比較目前修課人數與課程容量
-3. **通知觸發**：發現有餘額時發送 LINE 推播訊息
-4. **自動終止**：通知發送後自動移除課程監控
+1. **Query Cycle**: Check course status every 5 seconds
+2. **Availability Detection**: Compare current enrollment vs. capacity
+3. **Notification Trigger**: Send LINE push message when seats available
+4. **Auto-Termination**: Remove course from monitoring after notification
 
-### 資料結構
+### Data Structure
 
 ```python
 monitoring_data = {
@@ -230,26 +230,26 @@ monitoring_data = {
 }
 ```
 
-### 執行緒安全
+### Thread Safety
 
-- **監控鎖定**：`threading.Lock()` 保護並發存取
-- **Daemon 執行緒**：背景監控執行緒隨主程序自動終止
-- **資源清理**：取消監控時自動終止執行緒
+- **Monitoring Lock**: `threading.Lock()` for concurrent access protection
+- **Daemon Threads**: Background monitoring threads automatically terminate with main process
+- **Resource Cleanup**: Automatic thread termination when monitoring is cancelled
 
-## 🚀 部署選項
+## 🚀 Deployment Options
 
-### 本地開發
+### Local Development
 ```bash
 python main.py
 ```
 
-### 使用 Gunicorn 的正式環境
+### Production with Gunicorn
 ```bash
 pip install gunicorn
 gunicorn -w 4 -b 0.0.0.0:5000 main:app
 ```
 
-### Docker 部署
+### Docker Deployment
 ```dockerfile
 FROM python:3.9-slim
 
@@ -265,100 +265,100 @@ EXPOSE 5000
 CMD ["python", "main.py"]
 ```
 
-建置與執行：
+Build and run:
 ```bash
 docker build -t soochow-course-bot .
 docker run -p 5000:5000 --env-file .env soochow-course-bot
 ```
 
-### 雲端平台
+### Cloud Platforms
 
 **Railway.app**
-1. 連接 GitHub 儲存庫
-2. 新增環境變數
-3. 自動部署
+1. Connect GitHub repository
+2. Add environment variables
+3. Deploy automatically
 
 **Render.com**
-1. 建立新的 Web 服務
-2. 連接儲存庫
-3. 設定建置指令：`pip install -r requirements.txt`
-4. 設定啟動指令：`python main.py`
+1. Create new web service
+2. Connect repository
+3. Set build command: `pip install -r requirements.txt`
+4. Set start command: `python main.py`
 
-## 🔍 故障排除
+## 🔍 Troubleshooting
 
-### 常見問題
+### Common Issues
 
-**登入失敗**
-- 驗證東吳大學認證資料
-- 檢查大學系統是否可存取
-- 確保遠端存取時有 VPN 連線
+**Login Failures**
+- Verify Soochow University credentials
+- Check if the university system is accessible
+- Ensure VPN connection if accessing remotely
 
-**LINE Bot 無回應**
-- 驗證 Channel Access Token 和 Secret
-- 確認 webhook URL 設定
-- 檢查 ngrok 隧道狀態
-- 查看 Flask 應用程式日誌
+**LINE Bot Unresponsive**
+- Validate Channel Access Token and Secret
+- Verify webhook URL configuration
+- Check ngrok tunnel status
+- Review Flask application logs
 
-**課程查詢錯誤**
-- 確認4位數課程編號格式
-- 驗證課程在本學期是否存在
-- 檢查課程選課是否開放
+**Course Query Errors**
+- Confirm 4-digit course code format
+- Verify course exists in current semester
+- Check if course registration is open
 
-**監控功能無效**
-- 確保 LINE Developers 帳號已綁定信用卡
-- 檢查 Push Message API 配額
-- 在日誌中驗證執行緒執行狀況
+**Monitoring Not Working**
+- Ensure credit card is linked to LINE Developers account
+- Check Push Message API quotas
+- Verify thread execution in logs
 
-### 除錯
+### Debugging
 
-**啟用除錯模式**
+**Enable Debug Mode**
 ```python
 DEBUG_MODE = True
 app.run(host='0.0.0.0', port=5000, debug=True)
 ```
 
-**日誌分析**
-系統輸出詳細的執行日誌：
-- 認證狀態
-- 課程查詢結果
-- 監控狀態變化
-- 錯誤訊息與堆疊追蹤
+**Log Analysis**
+The system outputs detailed execution logs:
+- Authentication status
+- Course query results  
+- Monitoring state changes
+- Error messages and stack traces
 
-## 🧪 測試
+## 🧪 Testing
 
-### 單元測試
+### Unit Testing
 ```bash
-# 安裝測試相依性
+# Install testing dependencies
 pip install pytest pytest-flask
 
-# 執行測試
+# Run tests
 pytest tests/
 ```
 
-### 手動測試
-1. **健康檢查**：造訪 `http://localhost:5000`
-2. **課程查詢**：發送課程編號給 LINE 機器人
-3. **監控**：驗證背景執行緒執行
-4. **通知**：測試推播訊息傳送
+### Manual Testing
+1. **Health Check**: Visit `http://localhost:5000`
+2. **Course Query**: Send course code to LINE bot
+3. **Monitoring**: Verify background thread execution
+4. **Notifications**: Test push message delivery
 
-## 📈 效能與擴展性
+## 📈 Performance & Scalability
 
-### 監控容量
-- **每位使用者**：最多10個並發課程監控
-- **系統**：理論上限取決於伺服器資源
-- **執行緒**：每位使用者每門課程一個監控執行緒
+### Monitoring Capacity
+- **Per User**: Maximum 10 concurrent course monitors
+- **System**: Theoretical limit depends on server resources
+- **Threads**: One monitoring thread per course per user
 
-### 最佳化技術
-- **會話重用**：持續的 HTTP 會話用於認證
-- **執行緒池**：考慮為高使用者量實作執行緒池
-- **資料庫整合**：將監控資料儲存在持久性儲存中以提高擴展性
-- **快取機制**：實作課程資料快取以減少伺服器負載
+### Optimization Techniques
+- **Session Reuse**: Persistent HTTP sessions for authentication
+- **Thread Pools**: Consider implementing thread pools for high user volumes
+- **Database Integration**: Store monitoring data in persistent storage for scalability
+- **Caching**: Implement course data caching to reduce server load
 
-## 🤝 貢獻
+## 🤝 Contributing
 
-我們歡迎貢獻！請遵循以下指南：
+We welcome contributions! Please follow these guidelines:
 
-### 開發設定
+### Development Setup
 ```bash
 git clone https://github.com/yourusername/soochow-course-bot.git
 cd soochow-course-bot
@@ -367,46 +367,46 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 貢獻流程
-1. **Fork** 儲存庫
-2. **建立** 功能分支 (`git checkout -b feature/amazing-feature`)
-3. **提交** 變更 (`git commit -m 'Add amazing feature'`)
-4. **推送** 至分支 (`git push origin feature/amazing-feature`)
-5. **開啟** Pull Request
+### Contribution Process
+1. **Fork** the repository
+2. **Create** feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to branch (`git push origin feature/amazing-feature`)
+5. **Open** Pull Request
 
-### 程式碼標準
-- 遵循 PEP 8 風格指南
-- 為函數和類別新增文件字串
-- 為新功能包含單元測試
-- 適時更新文件
+### Code Standards
+- Follow PEP 8 style guidelines
+- Add docstrings to functions and classes
+- Include unit tests for new features
+- Update documentation as needed
 
-## 📄 授權
+## 📄 License
 
-此專案採用 **MIT 授權** - 詳見 [LICENSE](LICENSE) 檔案
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-## ⚠️ 免責聲明
+## ⚠️ Disclaimer
 
-此機器人僅供**教育和個人使用**。使用者必須遵守東吳大學的服務條款和相關規定。開發者對任何誤用或違規行為不承擔責任。
+This bot is intended for **educational and personal use only**. Users must comply with Soochow University's terms of service and regulations. The developers assume no responsibility for any misuse or violations.
 
-**重要提醒：**
-- 尊重大學的課程選課系統
-- 避免過度請求對伺服器造成負載
-- 在選課高峰期間負責任地使用
-- 確保符合學術誠信政策
+**Important Notes:**
+- Respect the university's course registration system
+- Do not overload servers with excessive requests
+- Use responsibly during peak registration periods
+- Ensure compliance with academic integrity policies
 
-## 📞 支援與回饋
+## 📞 Support & Feedback
 
-- **問題回報**：[GitHub Issues](https://github.com/yourusername/soochow-course-bot/issues)
-- **討論區**：[GitHub Discussions](https://github.com/yourusername/soochow-course-bot/discussions)
-- **電子信箱**：your.email@example.com
+- **Issues**: [GitHub Issues](https://github.com/yourusername/soochow-course-bot/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/soochow-course-bot/discussions)
+- **Email**: your.email@example.com
 
-## 🙏 致謝
+## 🙏 Acknowledgments
 
-- **東吳大學** 提供課程系統
-- **LINE Corporation** 提供訊息平台
-- **貢獻者** 協助改善此專案
-- **開源社群** 提供優秀的函式庫
+- **Soochow University** for providing the course system
+- **LINE Corporation** for the messaging platform
+- **Contributors** who helped improve this project
+- **Open Source Community** for the amazing libraries
 
 ---
 
-用 ❤️ 為東吳大學學生製作
+Made with ❤️ for Soochow University students
