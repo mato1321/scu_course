@@ -1,4 +1,4 @@
-# Course Warrior🦸 (Soochow University Course Availability Bot)
+# Course Warrior🦸<br>(Soochow University Course Availability Bot)
 
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1.1-green.svg)](https://flask.palletsprojects.com/)
