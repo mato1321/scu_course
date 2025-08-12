@@ -210,4 +210,4 @@ The developer assumes no responsibility for any misuse or violations.
 
 ---
 
-Made for Soochow University students (If you have any questions, feel free to message me privately and I'll try my best to answer!)
+Made for Soochow University students <br>(If you have any questions, feel free to message me privately and I'll try my best to answer!)
