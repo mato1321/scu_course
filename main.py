@@ -5,6 +5,7 @@ import re
 import threading
 import time
 import json
+from datetime import date
 from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -33,6 +34,38 @@ line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 monitoring_data = {}  # {user_id: {course_id: {'course_name': str, 'thread': Thread}}}
 monitoring_lock = threading.Lock()
+last_check_date = None
+
+def check_and_clear_monitoring():
+    """Check if monitoring courses need to be cleared on March 1st and October 1st"""
+    global last_check_date
+    current_date = date.today()
+    # Skip if already checked today
+    if last_check_date == current_date:
+        return
+    # Check if it's March 1st or October 1st
+    if (current_date.month == 3 and current_date.day == 1) or \
+            (current_date.month == 10 and current_date.day == 1):
+        print(f"Auto-clearing all monitoring on {current_date}")
+        with monitoring_lock:
+            total_courses = sum(len(courses) for courses in monitoring_data.values())
+            total_users = len(monitoring_data)
+            monitoring_data.clear()
+        print(f"Cleared {total_courses} courses for {total_users} users")
+
+    # Update last check date
+    last_check_date = current_date
+
+
+def auto_clear_scheduler():
+    """Background thread to periodically check for auto-clear"""
+    while True:
+        try:
+            check_and_clear_monitoring()
+            time.sleep(3600)
+        except Exception as e:
+            print(f"Error in auto-clear scheduler: {e}")
+            time.sleep(3600)
 
 
 class CourseQuery:
@@ -291,6 +324,9 @@ def monitor_course(user_id, course_id, course_name):
 
     while True:
         try:
+            # Check for auto-clear
+            check_and_clear_monitoring()
+
             # Check if still in monitoring list
             with monitoring_lock:
                 if (user_id not in monitoring_data or
@@ -317,7 +353,8 @@ def monitor_course(user_id, course_id, course_name):
 
                     try:
                         line_bot_api.push_message(user_id, TextSendMessage(text=notification))
-                        print(f"Notification sent to user {user_id}, course {course_id} has {available} slots available")
+                        print(
+                            f"Notification sent to user {user_id}, course {course_id} has {available} slots available")
                     except Exception as e:
                         print(f"Failed to send notification: {e}")
 
@@ -606,5 +643,9 @@ if __name__ == "__main__":
     else:
         print("Login failed, please check environment variable settings")
 
+    # Start auto-clear scheduler
+    auto_clear_thread = threading.Thread(target=auto_clear_scheduler, daemon=True)
+    auto_clear_thread.start()
+    print("Auto-clear scheduler started")
     print("Monitoring feature activated")
     app.run(host='0.0.0.0', port=5000, debug=True)
