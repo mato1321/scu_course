@@ -1,4 +1,4 @@
-# Course Warrior🦸<br>(Soochow University Course Availability Bot)
+# Course Warrior🦸 (Soochow University Course Availability Bot)
 
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1.1-green.svg)](https://flask.palletsprojects.com/)
@@ -11,12 +11,12 @@ This is a LINE bot application exclusively for Soochow University students that 
 ## Core Features
 
 - **Real-time Course Query**: Quickly query detailed course information using 4-digit course codes
--  **Smart Auto-monitoring**: Automatically monitors full courses and notifies immediately when spots open up
--  **Complete Management Interface**: View, add, and remove courses from your monitoring list
--  **Instant Push Notifications**: Receive availability notifications through LINE messages in real-time
--  **Resource Management**: Limits each user to monitoring a maximum of 10 courses with thread-safe mechanisms
--  **Fault Tolerance**: Automatic retry mechanisms and error recovery features
--  **Scheduled Monitor Cleanup**: Automatically deletes monitored courses after semester begins
+- **Smart Auto-monitoring**: Automatically monitors full courses and notifies immediately when spots open up
+- **Complete Management Interface**: View, add, and remove courses from your monitoring list
+- **Instant Push Notifications**: Receive availability notifications through LINE messages in real-time
+- **Resource Management**: Limits each user to monitoring a maximum of 10 courses with thread-safe mechanisms
+- **Fault Tolerance**: Automatic retry mechanisms and error recovery features
+- **Scheduled Monitor Cleanup**: Automatically deletes monitored courses after semester begins
 
 ## System Architecture
 
@@ -33,16 +33,28 @@ This is a LINE bot application exclusively for Soochow University students that 
 - **Data Parsing**: Regular expressions + DOM parsing
 - **Environment Management**: python-dotenv 1.0.0
 
-##  How to Use
+## How to Use
 
-### Environment Requirements (for local development)
+### Usage Options
+
+**Method 1: Local Development**
+- Requires Python environment installation
+- Uses ngrok to establish connection tunnel
+- Suitable for development and testing phases
+
+**Method 2: Cloud Deployment**
+- No local environment needed, runs 24/7
+- Uses Railway for free deployment
+- Suitable for production and long-term monitoring
+
+### Environment Requirements (Local Development)
 
 - **Python 3.7+** with pip package manager installed
 - **LINE Bot Channel** (Channel Access Token and Channel Secret)
 - **Soochow University Account** (student authentication credentials)
 - **ngrok** for HTTPS tunnel during local development
 
-### Installation Guide
+### Installation Guide (Local Development)
 
 1. **Clone Repository**
 ```bash
@@ -80,7 +92,7 @@ python main.py
 
 The service will run on `http://localhost:5000`
 
-##  ngrok Setup and Integration
+## ngrok Setup and Integration
 
 ### Install ngrok
 
@@ -90,7 +102,7 @@ The service will run on `http://localhost:5000`
 
 2. **Authentication Setup**
 ```bash
-ngrok authtoken YOUR_AUTH_TOKEN
+ngrok authtoken your_auth_token
 ```
 
 ### Tunnel Setup
@@ -134,7 +146,65 @@ Forwarding        https://abc123.ngrok.io -> http://localhost:5000  <-- Use this
    - Add the bot as a friend using QR code
    - Send test messages
 
-##  Bot Commands and Usage
+## Cloud Deployment Method
+
+### Cloud Deployment Requirements
+
+- **GitHub Account** (free registration)
+- **Railway Account** (free registration: https://railway.app)
+- **LINE Bot Channel Information** (same as local development)
+- **Soochow University Account** (same as local development)
+
+### Railway Deployment Steps
+
+#### Step 1: Prepare Code
+
+1. **Create GitHub Repository**
+   - Go to https://github.com and log in
+   - Click "New repository"
+   - Repository name: `soochow-course-bot`
+   - Set as Public or Private
+   - Click "Create repository"
+
+2. **Upload Code to GitHub**
+   - Download project files
+   - Upload all files to GitHub (except .env file)
+
+#### Step 2: Railway Deployment
+
+1. **Login to Railway**
+   - Go to https://railway.app
+   - Use GitHub account to log in
+
+2. **Create New Project**
+   - Click "New Project"
+   - Select "Deploy from GitHub repo"
+   - Choose your Repository
+   - Click "Deploy Now"
+
+3. **Configure Environment Variables**
+   - In Railway Dashboard, click your project
+   - Go to "Variables" tab
+   - Add the following environment variables:
+     ```
+     LINE_CHANNEL_ACCESS_TOKEN=your_LINE_Token
+     LINE_CHANNEL_SECRET=your_LINE_Secret
+     SOOCHOW_USERNAME=your_soochow_student_id
+     SOOCHOW_PASSWORD=your_soochow_password
+     ```
+
+#### Step 3: Configure LINE Webhook
+
+1. **Get Railway URL**
+   - In project settings, click "Generate Domain"
+   - Copy the URL (e.g., `https://your-app.up.railway.app`)
+
+2. **Update LINE Bot Settings**
+   - Go to LINE Developers Console
+   - Set Webhook URL: `https://your-app.up.railway.app/callback`
+   - Enable "Use webhook" and verify
+
+## Bot Commands and Usage
 
 ### Available Commands
 
@@ -157,25 +227,25 @@ Forwarding        https://abc123.ngrok.io -> http://localhost:5000  <-- Use this
 
 **Spots Available:**
 ```
-Course Name: Data Structures
-Course Code: 7002
-Subject Code: CSIE2001
-Credits: 3
-Enrollment: 45/60
-Available Spots: 15 people
-(Currently 15 spots available, please add the course quickly!)
+課程名稱：資料結構
+選課編號：7002
+科目代碼：CSIE2001
+學分數：3
+修課人數：45/60
+剩餘名額：15 人
+(目前有15個名額，請盡快去加選!)
 ```
 
 **No Spots (Auto-monitoring Activated):**
 ```
-Successfully added to monitoring list!
-Course Name: Data Structures
-Course Code: 7002
-Subject Code: CSIE2001
-Credits: 3
-Enrollment: 60/60
-Available Spots: 0 people
-(Currently no spots available, you will be notified via LINE when spots open up)
+成功加入監控清單!
+課程名稱：資料結構
+選課編號：7002
+科目代碼：CSIE2001
+學分數：3
+修課人數：60/60
+剩餘名額：0 人
+(目前沒有名額，當有名額時會由line主動通知)
 ```
 
 ### System Parameters
@@ -202,7 +272,7 @@ The system outputs detailed execution logs:
 - Monitoring status changes
 - Error messages and stack traces
 
-##  Disclaimer
+## Disclaimer
 
 This bot is for **educational and personal use only**. Users must comply with Soochow University's terms of service and related regulations.
 
@@ -210,4 +280,4 @@ The developer assumes no responsibility for any misuse or violations.
 
 ---
 
-Made for Soochow University students <br>(If you have any questions, feel free to message me privately and I'll try my best to answer!)
+Made for Soochow University students (If you have any questions, feel free to message me privately and I'll try my best to answer!)
